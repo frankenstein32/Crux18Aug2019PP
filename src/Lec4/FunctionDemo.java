@@ -84,7 +84,7 @@ public class FunctionDemo {
 		System.out.println(one + ", " + two);
 	}
 
-	public static int DemoScopes(int one, int another) {
+	public static int DemoScopes(int one, int nother) {
 
 		int sum = one + another;
 		return sum;
