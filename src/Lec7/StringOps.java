@@ -1,6 +1,8 @@
 package Lec7;
 
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class StringOps {
 
@@ -12,6 +14,7 @@ public class StringOps {
 
 //		Substrings(str);
 		System.out.println(CountSubstrings(str));
+
 	}
 
 	public static boolean isPal(String str) {
