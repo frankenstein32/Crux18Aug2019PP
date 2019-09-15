@@ -1,4 +1,4 @@
-package Lec7;
+package Lec6;
 
 import java.util.Scanner;
 
@@ -47,25 +47,5 @@ public class TwoDdemos {
 		// jagged
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

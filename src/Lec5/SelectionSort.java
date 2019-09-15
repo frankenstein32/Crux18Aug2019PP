@@ -1,4 +1,4 @@
-package Lec6;
+package Lec5;
 
 public class SelectionSort {
 
