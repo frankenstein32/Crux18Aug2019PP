@@ -5,7 +5,7 @@ public class Recursion {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-//		PD(5);
+		PD(5);
 //		PI(1);
 //		int fact = fact(5);
 //		System.out.println(fact);\
@@ -13,8 +13,8 @@ public class Recursion {
 //		System.out.println(power(2, 3));
 //		System.out.println(fibonacci(6));
 
-		int[] arr = { 1, 2, 3, 4, 5 };
-		printArray(arr, 0);
+//		int[] arr = { 1, 2, 3, 4, 5 };
+//		printArray(arr, 0);
 	}
 
 	public static int PD(int n) {
