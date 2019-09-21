@@ -1,4 +1,4 @@
-package sept17;
+package Assingments.sept17;
 
 import java.util.Arrays;
 import java.util.Scanner;

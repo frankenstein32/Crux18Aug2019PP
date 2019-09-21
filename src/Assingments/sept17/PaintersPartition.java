@@ -9,8 +9,9 @@ public class PaintersPartition {
 
 		Scanner scn = new Scanner(System.in);
 
-		int nob = scn.nextInt();
 		int nop = scn.nextInt();
+		int nob = scn.nextInt();
+		
 
 		int[] boards = new int[nob];
 
