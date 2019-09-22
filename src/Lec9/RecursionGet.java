@@ -14,8 +14,9 @@ public class RecursionGet {
 //		System.out.println(permutation("abc"));
 //		System.out.println(boardPath(0, 10));
 //		System.out.println(mazePath(0, 0, 2, 2).size());
-		System.out.println(mazePathMM(0, 0, 2, 2));
-//		System.out.println(coinToss(3));
+//		System.out.println(mazePathMM(0, 0, 2, 2));
+		System.out.println(mazePathMM(0, 0, 3, 3));
+		System.out.println(coinToss(3));
 
 	}
 
