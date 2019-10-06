@@ -11,10 +11,37 @@ public class BackTracking {
 //		System.out.println(coinchange(coins, 0, 10, "", 0));
 //		coinChangeCoin(coins, 0, 10, "");
 
-		boolean[][] board = new boolean[4][4];
+//		boolean[][] board = new boolean[4][4];
+
+		int[][] arr = { { 0, 1, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 1, 0 }, { 0, 1, 0, 0 } };
 //		combQueenBox(board, 0, 0, 2, "");
 //		combQueen2d(board, 0, 0, 0, 2, "");
-		NQueen(board, 0, 0, 0, board.length, "");
+//		NQueen(board, 0, 0, 0, board.length, "");
+//		NQueen_Eff(board, 0, 0, 4, "");
+
+//		blockedMaze(arr, 0, 0, "", board);
+
+		char[][] board = { { 'A', 'B', 'C', 'E' }, { 'S', 'F', 'C', 'S' }, { 'A', 'D', 'E', 'E' } };
+		String word = "SEE";
+
+		int n = board.length;
+		int m = board[0].length;
+		boolean ans = false;
+		for (int row = 0; row < board.length; row++) {
+			for (int col = 0; col < board[0].length; col++) {
+
+				if (board[row][col] == word.charAt(0)) {
+					ans = ans || wordSearch(board, row, col, new boolean[n][m], word, 0);
+
+				}
+			}
+		}
+
+		if (ans) {
+			System.out.println(true);
+		} else {
+			System.out.println(false);
+		}
 
 	}
 
@@ -235,6 +262,117 @@ public class BackTracking {
 
 		return true;
 
+	}
+
+	public static void NQueen_Eff(boolean[][] board, int row, int qpsf, int tq, String ans) {
+
+		if (qpsf == tq) {
+			System.out.println(ans);
+			return;
+		}
+
+		if (row == board.length) {
+			return;
+		}
+
+		for (int col = 0; col < board[0].length; col++) {
+
+			if (IsItSafe(board, row, col)) {
+				board[row][col] = true;
+				NQueen_Eff(board, row + 1, qpsf + 1, tq, ans + "(" + row + "-" + col + ")");
+				board[row][col] = false;
+			}
+		}
+
+	}
+
+	public static boolean blockedMaze(int[][] board, int row, int col, String ans, boolean[][] visited) {
+
+		if (row == board.length - 1 && col == board[0].length - 1) {
+
+			System.out.println(ans);
+			return true;
+		}
+
+		if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] == 1
+				|| visited[row][col] == true) {
+			return false;
+		}
+
+		visited[row][col] = true;
+		boolean down = blockedMaze(board, row + 1, col, ans + "D", visited);
+		boolean up = blockedMaze(board, row - 1, col, ans + "U", visited);
+		boolean left = blockedMaze(board, row, col - 1, ans + "L", visited);
+		boolean right = blockedMaze(board, row, col + 1, ans + "R", visited);
+		visited[row][col] = false;
+
+		return down || up || left || right;
+	}
+
+	public static boolean IsItSafeKnight(boolean[][] board, int row, int col) {
+
+		//
+//
+//		int r = row - 1;
+//		int c = col - 2;
+//
+//		if (r >= 0 && c >= 0 && r < board.length && c < board[0].length && board[r][c]) {
+//			return false;
+//		}
+//		r = row - 2;
+//		c = col - 1;
+//
+//		if (board[r][c]) {
+//			return false;
+//		}
+//		r = row - 2;
+//		c = col + 1;
+//
+//		if (board[r][c]) {
+//			return false;
+//		}
+//		r = row - 1;
+//		c = col + 2;
+//
+//		if (board[r][c]) {
+//			return false;
+//		}
+
+		int[][] directions = { { -1, -2 }, { -2, -1 }, { -2, 1 }, { -1, 2 } };
+
+		for (int[] d : directions) {
+
+			int r = row + d[0];
+			int c = col + d[1];
+			if (board[r][c]) {
+				return false;
+			}
+		}
+
+	}
+
+	public static boolean wordSearch(char[][] board, int row, int col, boolean[][] visited, String word, int vidx) {
+
+		if (vidx == word.length()) {
+			return true;
+		}
+
+		if (row < 0 || col < 0 || row >= board.length || col >= board[0].length || visited[row][col]) {
+			return false;
+		}
+
+		if (board[row][col] != word.charAt(vidx)) {
+			return false;
+		}
+
+		visited[row][col] = true;
+		boolean down = wordSearch(board, row + 1, col, visited, word, vidx + 1);
+		boolean up = wordSearch(board, row - 1, col, visited, word, vidx + 1);
+		boolean left = wordSearch(board, row, col - 1, visited, word, vidx + 1);
+		boolean right = wordSearch(board, row, col + 1, visited, word, vidx + 1);
+//		visited[row][col] = false;
+
+		return down || up || left || right;
 	}
 
 }
