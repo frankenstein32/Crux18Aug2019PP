@@ -20,9 +20,9 @@ public class SOE {
 
 		for (int table = 2; table * table <= n; table++) {
 
-//			if (primes[table] == false) {
-//				continue;
-//			}
+			if (primes[table] == false) {
+				continue;
+			}
 			for (int mult = table; table * mult <= n; mult++) {
 				primes[table * mult] = false;
 			}
