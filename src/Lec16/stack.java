@@ -16,22 +16,20 @@ public class stack {
 		this.data = new int[cap];
 	}
 
-	public void push(int item) {
+	public void push(int item) throws Exception {
 
 		if (isFull()) {
-			System.out.println("Stack is Full");
-			return;
+			throw new Exception("Stack is Full");
 		}
 		this.tos++;
 		data[tos] = item;
 
 	}
 
-	public int pop() {
+	public int pop() throws Exception {
 
 		if (isEmpty()) {
-			System.out.println("Stack is Empty");
-			return -1;
+			throw new Exception("Stack is Empty");
 		}
 
 		int temp = data[tos];
@@ -42,11 +40,10 @@ public class stack {
 
 	}
 
-	public int peek() {
+	public int peek() throws Exception {
 
 		if (isEmpty()) {
-			System.out.println("Stack is Empty");
-			return -1;
+			throw new Exception("Stack is Empty");
 		}
 
 		return data[tos];

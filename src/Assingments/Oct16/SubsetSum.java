@@ -15,7 +15,9 @@ public class SubsetSum {
 			arr[i] = scn.nextInt();
 
 		int target = scn.nextInt();
-		calculate(arr, 0, "", target);
+		int cnt = calculate(arr, 0, "", target);
+		System.out.println();
+		System.out.println(cnt);
 	}
 
 	public static int calculate(int[] arr, int vidx, String ans, int target) {
