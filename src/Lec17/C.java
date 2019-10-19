@@ -1,6 +1,6 @@
 package Lec17;
 
-public class C extends P {
+public class C {
 
 	int d = 5;
 	int d2 = 50;

@@ -2,7 +2,7 @@ package Lec16;
 
 public class stack {
 
-	int[] data;
+	protected int[] data;
 	int tos;
 
 	public stack() {

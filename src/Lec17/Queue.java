@@ -2,9 +2,9 @@ package Lec17;
 
 public class Queue {
 
-	int[] data;
-	int front;
-	int size;
+	protected int[] data;
+	protected int front;
+	protected int size;
 
 	public Queue() {
 
@@ -53,12 +53,19 @@ public class Queue {
 
 	}
 
+	//Getters
+	public int size() {
+		
+		return size;
+	}
+	
+	//Setters
+	public void new_size(int ns) {
+	
+		size = ns;
+	}
+	
 	public void display() {
-
-		for (int val : data) {
-			System.out.print(val + " ");
-		}
-		System.out.println();
 
 		System.out.println();
 		for (int i = front; i < front + size; i++) {
