@@ -317,6 +317,35 @@ public class LinkedList {
 
 	}
 
+	public void fold() {
+
+		mover m = new mover();
+		m.left = head;
+		fold(m, head, 0);
+	}
+
+	public void fold(mover m, Node right, int cnt) {
+
+		if (right == null) {
+			return;
+		}
+
+		fold(m, right.next, cnt + 1);
+
+		if (cnt > size / 2) {
+			Node ahead = m.left.next;
+			m.left.next = right;
+			right.next = ahead;
+
+			m.left = ahead;
+		}
+
+		if (cnt == size / 2) {
+			tail = right;
+			tail.next = null;
+		}
+	}
+
 	public int mid() {
 
 		Node a = head;
