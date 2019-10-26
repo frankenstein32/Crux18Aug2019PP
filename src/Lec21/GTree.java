@@ -1,6 +1,8 @@
 package Lec21;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class GTree {
@@ -190,6 +192,169 @@ public class GTree {
 		}
 
 		System.out.println(node.data);
+	}
+
+	public void printAtLevel(int level) {
+
+		printAtLevel(root, 0, level);
+	}
+
+	public void printAtLevel(Node node, int currLevel, int level) {
+
+		if (currLevel == level) {
+			System.out.print(node.data + " ");
+			return;
+		}
+		for (Node child : node.children) {
+
+			printAtLevel(child, currLevel + 1, level);
+		}
+
+	}
+
+	public void levelorder() {
+
+		LinkedList<Node> q = new LinkedList<>();
+
+		q.addLast(root);
+
+		while (!q.isEmpty()) {
+
+			Node rp = q.removeFirst();
+
+			System.out.print(rp.data + " ");
+
+			for (Node child : rp.children) {
+				q.addLast(child);
+			}
+
+		}
+
+	}
+
+	public void levelorderLL1() {
+
+		LinkedList<Node> q = new LinkedList<>();
+
+		q.addLast(root);
+		q.addLast(null);
+
+		while (!q.isEmpty()) {
+
+			Node rp = q.removeFirst();
+
+			if (rp == null) {
+
+				if (q.isEmpty()) {
+					break;
+				}
+
+				System.out.println();
+				q.addLast(null);
+
+				continue;
+			}
+
+			System.out.print(rp.data + " ");
+
+			for (Node child : rp.children) {
+				q.addLast(child);
+			}
+
+		}
+
+	}
+
+	public void levelorderLL2() {
+
+		LinkedList<Node> q = new LinkedList<>();
+		LinkedList<Node> h = new LinkedList<>();
+
+		q.addLast(root);
+
+		while (!q.isEmpty()) {
+
+			Node rp = q.removeFirst();
+
+			System.out.print(rp.data + " ");
+
+			for (Node child : rp.children) {
+				h.addLast(child);
+			}
+
+			if (q.isEmpty()) {
+
+				System.out.println();
+				q = h;
+				h = new LinkedList<>();
+			}
+
+		}
+
+	}
+
+	public void levelOrerZZ() {
+
+		LinkedList<Node> q = new LinkedList<>();
+		LinkedList<Node> h = new LinkedList<>();
+
+		q.addLast(root);
+
+		int cnt = 0;
+
+		while (!q.isEmpty()) {
+
+			Node rp = q.removeFirst();
+
+			System.out.print(rp.data + " ");
+
+			if (cnt % 2 == 0) {
+				for (Node child : rp.children) {
+					h.addFirst(child);
+				}
+			} else {
+
+				for (int i = rp.children.size() - 1; i >= 0; i--) {
+					h.addFirst(rp.children.get(i));
+				}
+			}
+
+			if (q.isEmpty()) {
+
+				System.out.println();
+				q = h;
+				h = new LinkedList<>();
+
+				cnt++;
+			}
+
+		}
+	}
+
+	public void linearize(Node node) {
+
+		for (Node child : node.children) {
+			linearize(child);
+		}
+
+		// self work
+
+		while (node.children.size() > 1) {
+			Node tail = getTail(node.children.get(0));
+			Node child = node.children.remove(1);
+  
+			tail.children.add(child);
+		}
+
+	}
+
+	public Node getTail(Node node) {
+
+		if (node.children.size() == 0) {
+			return node;
+		}
+
+		return getTail(node.children.get(0));
 	}
 
 }

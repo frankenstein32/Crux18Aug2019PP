@@ -5,7 +5,7 @@ public class Gcleint {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		String str = "10 3 20 2 50 0 60 0 30 0 40 1 70 0";
+		String str = "10 3 20 2 50 0 60 1 80 0 30 0 40 1 70 1 90 0";
 		GTree gt = new GTree(str);
 		gt.display();
 
@@ -13,10 +13,15 @@ public class Gcleint {
 //		System.out.println(gt.height());
 //		System.out.println(gt.max());
 //		System.out.println(gt.find(10));
-		
-		gt.mirror();
-		System.out.println("Mirror");
-		gt.display();
+
+//		gt.mirror();
+//		System.out.println("Mirror");
+//		gt.display();
+//		gt.levelorder();
+//		gt.printAtLevel(2);
+		gt.levelorderLL2();
+		System.out.println("Zig Zag");
+		gt.levelOrerZZ();
 	}
 
 }
