@@ -20,35 +20,29 @@ public class BinaryTree {
 
 	public Node construct(Node parent, boolean ilc) {
 
-		if (parent == null) {
-			System.out.println("Enter the data for root node? ");
-		} else {
-
-			if (ilc) {
-				System.out.println("Enter the data for left child of " + parent.data + "? ");
-			} else {
-				System.out.println("Enter the data for right child of " + parent.data + "? ");
-			}
-		}
-
 		Node nn = new Node();
 		int item = scn.nextInt();
 		nn.data = item;
 
-		System.out.println("is left child of " + nn.data + "? ");
+		System.out.println("Coming through" + nn.data);
+
 		boolean lc = scn.nextBoolean();
 
 		if (lc) {
 			nn.left = construct(nn, true);
+
+			System.out.println("Coming via" + nn.left.data);
 		}
 
-		System.out.println("is right child of " + nn.data + "? ");
+		System.out.println("Going through" + nn.data);
 		boolean rc = scn.nextBoolean();
 
 		if (rc) {
 			nn.right = construct(nn, false);
+			System.out.println("Coming via" + nn.right.data);
 		}
 
+		System.out.println("Bye" + nn.data);
 		return nn;
 	}
 
