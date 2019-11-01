@@ -22,6 +22,10 @@ public class BTclient {
 		System.out.println();
 		System.out.print("InOrder: ");
 		bt.inorder();
+
+		System.out.println();
+		System.out.print("Preorder Itr: ");
+		bt.preorderItr();
 	}
 
 }

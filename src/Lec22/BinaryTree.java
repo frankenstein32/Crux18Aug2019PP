@@ -1,6 +1,7 @@
 package Lec22;
 
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BinaryTree {
 
@@ -18,6 +19,37 @@ public class BinaryTree {
 		scn = new Scanner(str);
 		root = construct(null, false);
 	}
+	
+	public Node construct(int[] pre, int plo, int phi, int[] in, int ilo, int ihi) {
+		
+		if(plo > phi || ilo > ihi) {
+			return null;
+		}
+		
+		Node node = new Node();
+		node.data = pre[plo];
+		
+		int nel = 0;
+		int si = -1;
+		
+		for(int i = ilo; i <= ihi;i++) {
+			
+			if(node.data == in[i]) {
+				si = i;
+				break;
+			}
+			
+			nel++;
+		}
+		
+		node.left = construct(pre, plo + 1, plo + nel, in, ilo, si - 1);
+		node.right = construct(pre, plo + nel + 1, phi, in, si + 1, ihi);
+		
+		return node;
+		
+	}
+	
+	
 
 	public Node construct(Node parent, boolean ilc) {
 
@@ -293,6 +325,142 @@ public class BinaryTree {
 		System.out.print(node.data + " ");
 
 		inorder(node.right);
+
+	}
+
+	class pair {
+
+		Node node;
+		boolean sd;
+		boolean rd;
+		boolean ld;
+	}
+
+	public void preorderItr() {
+
+		Stack<pair> s = new Stack<>();
+
+		pair np = new pair();
+		np.node = root;
+		s.push(np);
+
+		while (!s.isEmpty()) {
+
+			pair rp = s.peek();
+
+			if (rp.node == null) {
+				s.pop();
+				continue;
+			}
+
+			if (rp.sd == false) {
+				System.out.print(rp.node.data+" ");
+				rp.sd = true;
+			} else if (rp.ld == false) {
+
+				pair temp = new pair();
+				temp.node = rp.node.left;
+				s.push(temp);
+
+				rp.ld = true;
+			} else if (rp.rd == false) {
+
+				pair temp = new pair();
+				temp.node = rp.node.right;
+				s.push(temp);
+
+				rp.rd = true;
+
+			} else {
+				s.pop();
+			}
+
+		}
+
+	}
+
+	public void postorderItr() {
+
+		Stack<pair> s = new Stack<>();
+
+		pair np = new pair();
+		np.node = root;
+		s.push(np);
+
+		while (!s.isEmpty()) {
+
+			pair rp = s.peek();
+
+			if (rp.node == null) {
+				s.pop();
+				continue;
+			}
+
+			if (rp.ld == false) {
+
+				pair temp = new pair();
+				temp.node = rp.node.left;
+				s.push(temp);
+
+				rp.ld = true;
+			} else if (rp.rd == false) {
+
+				pair temp = new pair();
+				temp.node = rp.node.right;
+				s.push(temp);
+
+				rp.rd = true;
+
+			} else if (rp.sd == false) {
+				System.out.println(rp.node.data);
+				rp.sd = true;
+			} else {
+				s.pop();
+			}
+
+		}
+
+	}
+
+	public void InorderItr() {
+
+		Stack<pair> s = new Stack<>();
+
+		pair np = new pair();
+		np.node = root;
+		s.push(np);
+
+		while (!s.isEmpty()) {
+
+			pair rp = s.peek();
+
+			if (rp.node == null) {
+				s.pop();
+				continue;
+			}
+
+			if (rp.ld == false) {
+				pair temp = new pair();
+				temp.node = rp.node.left;
+				s.push(temp);
+
+				rp.ld = true;
+			} else if (rp.sd == false) {
+				System.out.println(rp.node.data);
+				rp.sd = true;
+			} else if (rp.rd == false) {
+
+				pair temp = new pair();
+				temp.node = rp.node.right;
+				s.push(temp);
+
+				rp.rd = true;
+
+			} else {
+				s.pop();
+			}
+
+		}
 
 	}
 
