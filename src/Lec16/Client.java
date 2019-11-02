@@ -1,37 +1,18 @@
 package Lec16;
 //
 
-
 public class Client {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		Student s = new Student();
-		
-		
-		Student s = new Student("A", 21);
+
+		Student s2 = new Student("A", 21);
 //		s.introduce("A", 20);
-		
+
 		System.out.println(s.age);
 		System.out.println(s.name);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 //		System.out.println(s.age);
 //		System.out.println(s.name);

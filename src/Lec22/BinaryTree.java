@@ -74,7 +74,7 @@ public class BinaryTree {
 
 	public void display() {
 
-		display(root);
+		display(root);	
 	}
 
 	public void display(Node node) {

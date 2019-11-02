@@ -349,6 +349,8 @@ public class BackTracking {
 			}
 		}
 
+		return true;
+
 	}
 
 	public static boolean wordSearch(char[][] board, int row, int col, boolean[][] visited, String word, int vidx) {

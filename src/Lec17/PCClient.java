@@ -16,9 +16,9 @@ public class PCClient {
 //		p1.fun2(); Error
 
 		C c1 = new C();
-		System.out.println(((P) c1).d);
+//		System.out.println(((P) c1).d);
 		System.out.println(c1.d); // 5
-		System.out.println(c1.d1); // 20
+//		System.out.println(c1.d1); // 20
 		System.out.println(c1.d2); // 50
 		
 		

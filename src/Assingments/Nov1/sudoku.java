@@ -1,4 +1,4 @@
-package BackTracking;
+package Assingments.Nov1;
 
 import java.util.Scanner;
 
