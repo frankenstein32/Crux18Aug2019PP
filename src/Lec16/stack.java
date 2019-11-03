@@ -80,4 +80,15 @@ public class stack {
 
 	}
 
+//	@Override
+//	public String toString() {
+//
+//		String str = "";
+//		for (int i = 0; i < data.length; i++) {
+//			str += data[i] + ",";
+//		}
+//
+//		return str;
+//	}
+
 }

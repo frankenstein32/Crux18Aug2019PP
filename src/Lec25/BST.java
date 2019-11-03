@@ -235,6 +235,10 @@ public class BST {
 	}
 
 	private Node remove(Node node, int val) {
+		
+		if(node == null) {
+			return null;
+		}
 
 		if (val < node.data) {
 			node.left = remove(node.left, val);
@@ -250,13 +254,10 @@ public class BST {
 			} else if (node.left != null && node.right == null) {
 				return node.left;
 			} else {
-
 				int lmax = max(node.left);
 				node.left = remove(node.left, lmax);
 				node.data = lmax;
-
 			}
-
 		}
 
 		return node;

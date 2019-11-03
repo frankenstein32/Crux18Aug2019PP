@@ -17,6 +17,7 @@ public class BST_Client {
 		System.out.println("******");
 		bst.add_oneLevelBefore(6);
 		bst.display();
+		bst.re
 	}
 
 }
