@@ -1,0 +1,50 @@
+
+
+
+#DrawBack -> Multiple Inheritance not possible through Inheritance.
+
+
+
+
+A class which is declared with the abstract keyword is known as an abstract class in Java. It can have abstract and non-abstract methods (method with the body).
+
+
+
+
+
+Abstract class in Java........
+
+Abstraction is a process of hiding the implementation details and showing only functionality to the user.
+
+Abstraction lets you focus on what the object does instead of how it does it.
+
+
+
+
+
+
+#Ways to achieve Abstraction
+There are two ways to achieve abstraction in java
+
+1. Abstract class (0 to 100%)
+2. Interface (100%)
+
+
+
+
+Abstract class in Java
+A class which is declared as abstract is known as an abstract class. It can have abstract and non-abstract methods. It needs to be extended and its method implemented. It cannot be instantiated.
+
+
+Points to Remember
+It cannot be instantiated.
+It can have constructors and static methods also.
+
+
+ NOTE: If you are extending an abstract class that has an abstract method, you must either provide the implementation of the method or make this class abstract.
+
+
+
+
+
+
