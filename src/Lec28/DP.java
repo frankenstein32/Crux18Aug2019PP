@@ -33,8 +33,28 @@ public class DP {
 //		System.out.println(LCSBU(s1, s2));
 
 //		System.out.println(EditDistance(s1, s2));
-		System.out.println(EditDistanceTD(s1, s2, strg));
-		System.out.println(EditDistanceBU(s1, s2));
+//		System.out.println(EditDistanceTD(s1, s2, strg));
+//		System.out.println(EditDistanceBU(s1, s2));
+
+		int[] wines = { 2, 3, 5, 1, 4 };
+//		int n = wines.length;
+//		System.out.println(wineProblem(wines, 0, n - 1, 1));
+
+//		System.out.println(mazePathBU(3, 3));
+//		System.out.println(mazePathBUSE_Dia(3, 3));
+//		System.out.println(wineProblem2TD(wines, 0, n - 1, new int[n][n]));
+//		System.out.println(wineproblemBU(wines));
+
+//		int[] matrix = { 1, 2, 3, 4, 5 };
+//		int n = matrix.length;
+//		System.out.println(MCM(matrix, 0, matrix.length - 1));
+//		System.out.println(MCMTD(matrix, 0, matrix.length - 1, new int[n][n]));
+//		System.out.println(MCMBU(matrix));
+
+		int[] w = { 1, 3, 4, 4 };
+		int[] p = { 1, 4, 5, 7 };
+
+		System.out.println(Knapsack(p, w, 0, 7));
 
 	}
 
@@ -89,7 +109,7 @@ public class DP {
 		int[] strg = new int[2];
 
 		strg[0] = 0;
-		strg[1] = 1;_
+		strg[1] = 1;
 
 		for (int i = 0; i < n - 1; i++) {
 
@@ -231,7 +251,7 @@ public class DP {
 					continue;
 				}
 
-				strg[row][col] = strg[row + 1][col] + strg[row][col + 1];
+				strg[row][col] = strg[row + 1][col] + strg[row][col + 1] + strg[row + 1][col + 1];
 
 			}
 		}
@@ -268,15 +288,15 @@ public class DP {
 		for (int row = er; row >= 0; row--) {
 			int dia = 0;
 			for (int col = ec; col >= 0; col--) {
-
+				int temp = strg[col];
 				if (row == er && col == ec) {
 					strg[col] = 1;
 					continue;
 				}
 
-				int temp = strg[col] + strg[col + 1] + dia;
-				dia = strg[col];
-				strg[col] = temp;
+				strg[col] = strg[col] + strg[col + 1] + dia;
+
+				dia = temp;
 
 			}
 		}
@@ -445,41 +465,239 @@ public class DP {
 	public static int EditDistanceBU(String s1, String s2) {
 
 		int[][] strg = new int[s1.length() + 1][s2.length() + 1];
-
 		for (int row = s1.length(); row >= 0; row--) {
 			for (int col = s2.length(); col >= 0; col--) {
-
 				if (row == s1.length()) {
 					strg[row][col] = s2.length() - col;
 					continue;
 				}
-
 				if (col == s2.length()) {
 					strg[row][col] = s1.length() - row;
 					continue;
 				}
-
 				char ch1 = s1.charAt(row);
 				char ch2 = s2.charAt(col);
-
 				int ans = 0;
 				if (ch1 == ch2) {
 					ans = strg[row + 1][col + 1];
 				} else {
-
 					int i = strg[row][col + 1];
 					int d = strg[row + 1][col];
 					int r = strg[row + 1][col + 1];
-
 					ans = Math.min(i, Math.min(d, r)) + 1;
 				}
-
 				strg[row][col] = ans;
+			}
+		}
+		return strg[0][0];
 
+	}
+
+	public static int wineProblem(int[] wines, int si, int ei, int yr) {
+
+		if (si == ei) {
+
+			return wines[si] * yr;
+		}
+
+		int fh = wineProblem(wines, si + 1, ei, yr + 1) + wines[si] * yr;
+		int sh = wineProblem(wines, si, ei - 1, yr + 1) + wines[ei] * yr;
+
+		return Math.max(fh, sh);
+
+	}
+
+	public static int wineProblem2(int[] prices, int si, int ei) {
+
+		int yr = prices.length - ei + si;
+		if (si == ei) {
+
+			return prices[si] * yr;
+		}
+
+		int fh = wineProblem2(prices, si + 1, ei) + prices[si] * yr;
+		int sh = wineProblem2(prices, si, ei - 1) + prices[ei] * yr;
+
+		return Math.max(fh, sh);
+
+	}
+
+	public static int wineProblem2TD(int[] prices, int si, int ei, int[][] strg) {
+
+		int yr = prices.length - ei + si;
+		if (si == ei) {
+			return prices[si] * yr;
+		}
+
+		if (strg[si][ei] != 0) {
+			return strg[si][ei];
+		}
+
+		int fh = wineProblem2TD(prices, si + 1, ei, strg) + prices[si] * yr;
+		int sh = wineProblem2TD(prices, si, ei - 1, strg) + prices[ei] * yr;
+
+		return strg[si][ei] = Math.max(fh, sh);
+
+	}
+
+	public static int wineproblemBU(int[] wines) {
+
+		int n = wines.length;
+		int[][] strg = new int[n][n];
+
+		for (int slide = 0; slide < n; slide++) {
+			for (int si = 0; si <= n - slide - 1; si++) {
+				int ei = slide + si;
+				int yr = n - ei + si;
+				if (si == ei) {
+					strg[si][ei] = wines[si] * yr;
+					continue;
+				}
+				int fh = strg[si + 1][ei] + wines[si] * yr;
+				int sh = strg[si][ei - 1] + wines[ei] * yr;
+
+				strg[si][ei] = Math.max(fh, sh);
+			}
+		}
+		return strg[0][n - 1];
+
+	}
+
+	public static int MCM(int[] matrix, int si, int ei) {
+
+		if (ei - si == 1) {
+			return 0;
+		}
+
+		int min = Integer.MAX_VALUE;
+
+		for (int k = si + 1; k <= ei - 1; k++) {
+
+			int fh = MCM(matrix, si, k);
+			int sh = MCM(matrix, k, ei);
+
+			int sw = matrix[si] * matrix[k] * matrix[ei];
+
+			int total = fh + sh + sw;
+
+			if (total < min) {
+				min = total;
 			}
 		}
 
-		return strg[0][0];
+		return min;
+
+	}
+
+	public static int MCMTD(int[] matrix, int si, int ei, int[][] strg) {
+
+		if (ei - si == 1) {
+			return 0;
+		}
+
+		if (strg[si][ei] != 0) {
+			return strg[si][ei];
+		}
+
+		int min = Integer.MAX_VALUE;
+
+		for (int k = si + 1; k <= ei - 1; k++) {
+
+			int fh = MCMTD(matrix, si, k, strg);
+			int sh = MCMTD(matrix, k, ei, strg);
+
+			int sw = matrix[si] * matrix[k] * matrix[ei];
+
+			int total = fh + sh + sw;
+
+			if (total < min) {
+				min = total;
+			}
+		}
+
+		strg[si][ei] = min;
+
+		return min;
+
+	}
+
+	public static int MCMBU(int[] matrix) {
+
+		int n = matrix.length;
+		int[][] strg = new int[n][n];
+
+		for (int slide = 1; slide < n; slide++) {
+
+			for (int si = 0; si <= n - slide - 1; si++) {
+
+				int ei = slide + si;
+
+				if (ei - si == 1) {
+					strg[si][ei] = 0;
+					continue;
+				}
+
+				int min = Integer.MAX_VALUE;
+
+				for (int k = si + 1; k <= ei - 1; k++) {
+
+					int fh = strg[si][k];
+					int sh = strg[k][ei];
+
+					int sw = matrix[si] * matrix[k] * matrix[ei];
+
+					int total = fh + sh + sw;
+
+					if (total < min) {
+						min = total;
+					}
+				}
+
+				strg[si][ei] = min;
+			}
+		}
+
+		return strg[0][n - 1];
+	}
+
+	public static int Knapsack(int[] prices, int[] weight, int vidx, int cap) {
+
+		if (vidx == weight.length) {
+			return 0;
+		}
+
+		int exc = Knapsack(prices, weight, vidx + 1, cap);
+
+		int inc = 0;
+
+		if (weight[vidx] <= cap) {
+			inc = Knapsack(prices, weight, vidx + 1, cap - weight[vidx]) + prices[vidx];
+		}
+
+		System.out.println(vidx + " " + cap);
+		return Math.max(exc, inc);
+
+	}
+
+	public static int KnapsackTD(int[] prices, int[] weight, int vidx, int cap, int[][] strg) {
+
+		if (vidx == weight.length) {
+			return 0;
+		}
+
+		if (strg[vidx][cap] != 0) {
+			return strg[vidx][cap];
+		}
+
+		int exc = KnapsackTD(prices, weight, vidx + 1, cap, strg);
+
+		int inc = 0;
+
+		if (weight[vidx] <= cap) {
+			inc = KnapsackTD(prices, weight, vidx + 1, cap - weight[vidx], strg) + prices[vidx];
+		}
+
+		return strg[vidx][cap] = Math.max(exc, inc);
 
 	}
 
