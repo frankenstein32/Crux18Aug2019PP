@@ -22,13 +22,13 @@ public class DP {
 		String s2 = "lkdjfd,fnsjdkfhkjsdhfkjksjfkdjfkdjdkjfdkjafd";
 //		System.out.println(LCS(s1, s2));
 
-		int[][] strg = new int[s1.length() + 1][s2.length() + 1];
-
-		for (int[] s : strg) {
-
-			Arrays.fill(s, -1);
-
-		}
+//		int[][] strg = new int[s1.length() + 1][s2.length() + 1];
+//
+//		for (int[] s : strg) {
+//
+//			Arrays.fill(s, -1);
+//
+//		}
 //		System.out.println(LCSTD(s1, s2, strg));
 //		System.out.println(LCSBU(s1, s2));
 
@@ -51,10 +51,29 @@ public class DP {
 //		System.out.println(MCMTD(matrix, 0, matrix.length - 1, new int[n][n]));
 //		System.out.println(MCMBU(matrix));
 
-		int[] w = { 1, 3, 4, 4 };
-		int[] p = { 1, 4, 5, 7 };
+//		int[] w = { 5, 3, 2, 4, 5 };
+//		int[] p = { 3, 5, 2, 2, 1 };
+//
+//		System.out.println(Knapsack(p, w, 0, 9));
+//		System.out.println(KnapsackTD(p, w, 0, 9, new int[w.length + 1][10]));
+//		System.out.println(KnapsackBU(w, p, 9));
 
-		System.out.println(Knapsack(p, w, 0, 7));
+		int cr = 0;
+		int cc = 1;
+		int er = 1;
+		int ec = 3;
+		int K = 3;
+
+//		int[][][] strg = new int[K + 1][er][ec];
+//
+//		System.out.println(boundaryPath(cr, cc, er, ec, K));
+//		System.out.println(boundaryPathTD(cr, cc, er, ec, K, strg));
+
+		int[] p = { 0, 1, 5, 8, 9, 10, 17, 17, 20 };
+
+		int[] strg = new int[p.length];
+		System.out.println(rodCutting(p, p.length - 1));
+		System.out.println(rodCuttingTD(p, p.length - 1, strg));
 
 	}
 
@@ -673,8 +692,6 @@ public class DP {
 		if (weight[vidx] <= cap) {
 			inc = Knapsack(prices, weight, vidx + 1, cap - weight[vidx]) + prices[vidx];
 		}
-
-		System.out.println(vidx + " " + cap);
 		return Math.max(exc, inc);
 
 	}
@@ -699,6 +716,228 @@ public class DP {
 
 		return strg[vidx][cap] = Math.max(exc, inc);
 
+	}
+
+	public static int KnapsackBU(int[] w, int[] p, int cap) {
+
+		int[] strg = new int[cap + 1];
+
+		for (int vidx = w.length - 1; vidx >= 0; vidx--) {
+
+			for (int c = cap; c >= 1; c--) {
+
+				int inc = 0, exc = 0;
+
+				exc = strg[c];
+
+				if (w[vidx] <= c)
+					inc = strg[c - w[vidx]] + p[vidx];
+
+				strg[c] = Math.max(inc, exc);
+			}
+		}
+
+		return strg[cap];
+
+	}
+
+	public static int boundaryPath(int cr, int cc, int er, int ec, int K) {
+
+		if (cr < 0 || cr >= er || cc < 0 || cc >= ec) {
+			return 1;
+		}
+
+		if (K == 0) {
+			return 0;
+		}
+
+		int cnt = 0;
+
+		// Smaller Problem
+		cnt += boundaryPath(cr + 1, cc, er, ec, K - 1);
+		cnt += boundaryPath(cr - 1, cc, er, ec, K - 1);
+		cnt += boundaryPath(cr, cc + 1, er, ec, K - 1);
+		cnt += boundaryPath(cr, cc - 1, er, ec, K - 1);
+
+		return cnt;
+
+	}
+
+	public static int boundaryPathTD(int cr, int cc, int er, int ec, int K, int[][][] strg) {
+
+		if (cr < 0 || cr >= er || cc < 0 || cc >= ec) {
+			return 1;
+		}
+
+		if (K == 0) {
+			return 0;
+		}
+
+		if (strg[K][cr][cc] != 0) {
+			return strg[K][cr][cc];
+		}
+
+		int cnt = 0;
+
+		// Smaller Problem
+		cnt += boundaryPathTD(cr + 1, cc, er, ec, K - 1, strg);
+		cnt += boundaryPathTD(cr - 1, cc, er, ec, K - 1, strg);
+		cnt += boundaryPathTD(cr, cc + 1, er, ec, K - 1, strg);
+		cnt += boundaryPathTD(cr, cc - 1, er, ec, K - 1, strg);
+
+		strg[K][cr][cc] = cnt;
+		return cnt;
+
+	}
+
+	public static int boundaryPathBU(int i, int j, int er, int ec, int K) {
+
+		int[][][] strg = new int[K + 1][er][ec];
+
+		for (int moves = 1; moves <= K; moves++) {
+
+			for (int cr = er - 1; cr >= 0; cr--) {
+
+				for (int cc = ec - 1; cc >= 0; cc--) {
+
+					int cnt = 0;
+					// Up
+					if (cr - 1 < 0) {
+						cnt++;
+					} else {
+						cnt += strg[moves - 1][cr - 1][cc];
+					}
+
+					// Down
+					if (cr + 1 >= er) {
+						cnt++;
+					} else {
+						cnt += strg[moves - 1][cr + 1][cc];
+					}
+
+					// Left
+					if (cc - 1 < 0) {
+						cnt++;
+					} else {
+						cnt += strg[moves - 1][cr][cc - 1];
+					}
+
+					// Right
+					if (cc + 1 >= ec) {
+						cnt++;
+					} else {
+						cnt += strg[moves - 1][cr][cc + 1];
+					}
+//
+//					int[][] dirs = { { 1, 0 }, { -1, 0 }, { 0, -1 }, { 0, 1 } };
+//
+//					for (int[] d : dirs) {
+//
+//						int row = cr + d[0];
+//						int col = cc + d[1];
+//
+//						if (row < 0 || row >= er || col < 0 || cc >= ec) {
+//							cnt++;
+//						} else {
+//							cnt += strg[moves - 1][row][col];
+//						}
+//					}
+
+					strg[moves][cr][cc] = cnt;
+				}
+			}
+
+		}
+
+		return strg[K][i][j];
+
+	}
+
+	public static int rodCutting(int[] price, int len) {
+
+		int left = 1;
+		int right = len - 1;
+
+		int max = price[len];
+
+		while (left <= right) {
+
+			int fp = rodCutting(price, left);
+			int sp = rodCutting(price, right);
+
+			int total = fp + sp;
+
+			if (total > max) {
+				max = total;
+			}
+
+			left++;
+			right--;
+
+		}
+
+		return max;
+
+	}
+
+	public static int rodCuttingTD(int[] price, int len, int[] strg) {
+
+		if (strg[len] != 0) {
+			return strg[len];
+		}
+
+		int left = 1;
+		int right = len - 1;
+
+		int max = price[len];
+
+		while (left <= right) {
+
+			int fp = rodCuttingTD(price, left, strg);
+			int sp = rodCuttingTD(price, right, strg);
+
+			int total = fp + sp;
+
+			if (total > max) {
+				max = total;
+			}
+
+			left++;
+			right--;
+
+		}
+
+		strg[len] = max;
+		return max;
+
+	}
+
+	public static int rodCuttingBU(int[] price) {
+
+		int[] strg = new int[price.length];
+
+		for (int len = 1; len < strg.length; len++) {
+
+			int left = 1;
+			int right = len - 1;
+
+			int max = price[len];
+			while (left <= right) {
+				int fp = strg[left];
+				int sp = strg[right];
+				int total = fp + sp;
+
+				if (total > max) {
+					max = total;
+				}
+				left++;
+				right--;
+			}
+			strg[len] = max;
+
+		}
+
+		return strg[price.length - 1];
 	}
 
 }

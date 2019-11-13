@@ -120,13 +120,16 @@ The nested class architecture is divided into two:
 nested classes that are declared static are called static nested classes whereas,
 nested classes that are non-static are called inner classes
 
-The main difference between these two is that the inner classes have access to all member of the enclosing class (including private), whereas the static nested classes only have access to static members of the outer class.
+The main difference between these two is that the inner classes have access to all member 
+of the enclosing class (including private), whereas the static nested classes 
+only have access to static members of the outer class.
 
 
 
 
 
-In fact, static nested classes behaved exactly like any other top-level class but enclosed in the only class which will access it, to provide better packaging convenience.
+In fact, static nested classes behaved exactly like any other top-level class but 
+enclosed in the only class which will access it, to provide better packaging convenience.
 
 
 

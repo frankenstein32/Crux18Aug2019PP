@@ -8,30 +8,33 @@ public class client {
 
 	public static void main(String[] args) {
 
-		Integer[] arr = { 1, 2, 3, 4 };
-
-		String[] arr2 = { "abcd", "efgh", "hjue" };
-		display(arr2);
-
-		Car[] cars = new Car[5];
-		cars[0] = new Car(10, 20, "Black");
-		cars[1] = new Car(20, 120, "yello");
-		cars[2] = new Car(50, 1020, "Red");
-		cars[3] = new Car(2, 1020, "White");
-		cars[4] = new Car(60, 100, "Blue");
-
-		display(cars);
-
-		sort(cars);
-
-		System.out.println("After Sorting: ");
-
-		display(cars);
-
-		CarSpeedComparator comp = new CarSpeedComparator();
-		sort(cars, comp);
-
-		display(cars);
+//		Integer[] arr = { 1, 2, 3, 4 };
+//
+//		String[] arr2 = { "abcd", "efgh", "hjue" };
+//		display(arr2);
+//
+//		Car[] cars = new Car[5];
+//		cars[0] = new Car(10, 20, "Black");
+//		cars[1] = new Car(20, 120, "yello");
+//		cars[2] = new Car(50, 1020, "Red");
+//		cars[3] = new Car(2, 1020, "White");
+//		cars[4] = new Car(60, 100, "Blue");
+//
+//		display(cars);
+//
+//		sort(cars);
+//
+//		System.out.println("After Sorting: ");
+//
+//		display(cars);
+//
+//		CarSpeedComparator comp = new CarSpeedComparator();
+//		sort(cars, comp);
+//
+//		display(cars);
+		
+		
+		int[][][] arr = new int[1][2][3];
 
 	}
 
