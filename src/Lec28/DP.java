@@ -69,11 +69,16 @@ public class DP {
 //		System.out.println(boundaryPath(cr, cc, er, ec, K));
 //		System.out.println(boundaryPathTD(cr, cc, er, ec, K, strg));
 
-		int[] p = { 0, 1, 5, 8, 9, 10, 17, 17, 20 };
-
-		int[] strg = new int[p.length];
-		System.out.println(rodCutting(p, p.length - 1));
-		System.out.println(rodCuttingTD(p, p.length - 1, strg));
+//		int[] p = { 0, 1, 5, 8, 9, 10, 17, 17, 20 };
+//
+//		int[] strg = new int[p.length];
+//		System.out.println(rodCutting(p, p.length - 1));
+//		System.out.println(rodCuttingTD(p, p.length - 1, strg));
+		
+		
+		
+		System.out.println((-1)/2);
+		
 
 	}
 

@@ -32,8 +32,7 @@ public class client {
 //		sort(cars, comp);
 //
 //		display(cars);
-		
-		
+
 		int[][][] arr = new int[1][2][3];
 
 	}
