@@ -1,0 +1,14 @@
+
+A Graph is given with 1000 vertices and 640 edges.
+
+What are the :-
+
+1. Maximum no of connected components possible.
+2. Minimum no of connected components possible.
+
+
+
+No of spanning tree possible = |E| C |V - 1| - No of cycles.
+If cycle contains Vertices less than V.
+
+
