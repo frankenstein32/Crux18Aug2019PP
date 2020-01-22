@@ -6,7 +6,9 @@ public class RecursionPrint {
 		// TODO Auto-generated method stub
 
 //		subseq("abc", "");
-		prmt("amr", "");
+//		prmt("amr", "");
+		
+		lexicoCounting(0, 1000);
 	}
 
 	public static void subseq(String ques, String ans) {

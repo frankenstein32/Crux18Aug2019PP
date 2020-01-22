@@ -372,7 +372,7 @@ public class BackTracking {
 		boolean up = wordSearch(board, row - 1, col, visited, word, vidx + 1);
 		boolean left = wordSearch(board, row, col - 1, visited, word, vidx + 1);
 		boolean right = wordSearch(board, row, col + 1, visited, word, vidx + 1);
-//		visited[row][col] = false;
+		visited[row][col] = false;
 
 		return down || up || left || right;
 	}

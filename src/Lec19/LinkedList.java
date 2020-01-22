@@ -459,4 +459,38 @@ public class LinkedList {
 
 	}
 
+	public void OddEven() {
+
+		Node fake_head_even = new Node();
+		Node fake_head_odd = new Node();
+
+		Node even = fake_head_even;
+		Node odd = fake_head_odd;
+
+		Node temp = this.head;
+
+		while (temp != null) {
+
+			if (temp.val % 2 == 0) {
+
+				even.next = temp;
+				even = even.next;
+			} else {
+
+				odd.next = temp;
+				odd = odd.next;
+			}
+
+			temp = temp.next;
+
+		}
+
+		// Attach
+		odd.next = fake_head_even.next;
+
+		this.head = fake_head_odd.next;
+		this.tail = even;
+
+	}
+
 }

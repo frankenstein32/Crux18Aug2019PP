@@ -1,5 +1,9 @@
 package Lec22;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -19,37 +23,35 @@ public class BinaryTree {
 		scn = new Scanner(str);
 		root = construct(null, false);
 	}
-	
+
 	public Node construct(int[] pre, int plo, int phi, int[] in, int ilo, int ihi) {
-		
-		if(plo > phi || ilo > ihi) {
+
+		if (plo > phi || ilo > ihi) {
 			return null;
 		}
-		
+
 		Node node = new Node();
 		node.data = pre[plo];
-		
+
 		int nel = 0;
 		int si = -1;
-		
-		for(int i = ilo; i <= ihi;i++) {
-			
-			if(node.data == in[i]) {
+
+		for (int i = ilo; i <= ihi; i++) {
+
+			if (node.data == in[i]) {
 				si = i;
 				break;
 			}
-			
+
 			nel++;
 		}
-		
+
 		node.left = construct(pre, plo + 1, plo + nel, in, ilo, si - 1);
 		node.right = construct(pre, plo + nel + 1, phi, in, si + 1, ihi);
-		
+
 		return node;
-		
+
 	}
-	
-	
 
 	public Node construct(Node parent, boolean ilc) {
 
@@ -74,7 +76,7 @@ public class BinaryTree {
 
 	public void display() {
 
-		display(root);	
+		display(root);
 	}
 
 	public void display(Node node) {
@@ -354,7 +356,7 @@ public class BinaryTree {
 			}
 
 			if (rp.sd == false) {
-				System.out.print(rp.node.data+" ");
+				System.out.print(rp.node.data + " ");
 				rp.sd = true;
 			} else if (rp.ld == false) {
 
@@ -461,6 +463,164 @@ public class BinaryTree {
 			}
 
 		}
+
+	}
+
+	class VOPair implements Comparable<VOPair> {
+
+		int data;
+		int hLevel;
+
+		public VOPair(int d, int h) {
+			data = d;
+			hLevel = h;
+		}
+
+		@Override
+		public String toString() {
+			return data + "";
+		}
+
+		@Override
+		public int compareTo(VOPair o) {
+			// TODO Auto-generated method stub
+			return this.hLevel - o.hLevel;
+		}
+
+	}
+
+	public void verticalorder() {
+
+		HashMap<Integer, ArrayList<VOPair>> map = new HashMap<>();
+
+		Vorder(root, 0, 0, map);
+
+		ArrayList<Integer> keySet = new ArrayList<>(map.keySet());
+
+		Collections.sort(keySet);
+
+		for (int key : keySet) {
+
+			ArrayList<VOPair> level = map.get(key);
+
+			Collections.sort(level);
+
+			System.out.println(key + " " + level);
+		}
+
+	}
+
+	public void Vorder(Node node, int vLevel, int hLevel, HashMap<Integer, ArrayList<VOPair>> map) {
+
+		if (node == null) {
+			return;
+		}
+
+		if (!map.containsKey(vLevel)) {
+			map.put(vLevel, new ArrayList<>());
+		}
+
+		ArrayList<VOPair> temp = map.get(vLevel);
+
+		VOPair np = new VOPair(node.data, hLevel);
+		temp.add(np);
+
+		Vorder(node.left, vLevel - 1, hLevel + 1, map);
+		Vorder(node.right, vLevel + 1, hLevel + 1, map);
+
+	}
+
+	public void kFar(int k, int dst) {
+		kFar(this.root, k, dst);
+	}
+
+	private int kFar(Node node, int k, int dst) {
+
+		if (node == null) {
+			return -1;
+		}
+
+		if (node.data == dst) {
+			kDown(node, 0, k);
+			return 0;
+		}
+
+		int ld = kFar(node.left, k, dst);
+
+		if (ld != -1) {
+
+			if (ld + 1 == k) {
+				System.out.println(node.data);
+			}
+
+			kDown(node.right, 0, k - ld - 2);
+
+			return ld + 1;
+		}
+
+		int rd = kFar(node.right, k, dst);
+
+		if (rd != -1) {
+
+			if (rd + 1 == k) {
+				System.out.println(node.data);
+			}
+
+			kDown(node.left, 0, k - rd - 2);
+
+			return rd + 1;
+		}
+
+		return -1;
+
+	}
+
+	private void kDown(Node node, int count, int k) {
+
+		if (node == null) {
+			return;
+		}
+
+		if (count == k) {
+			System.out.println(node.data);
+			return;
+		}
+
+		kDown(node.left, count + 1, k);
+		kDown(node.right, count + 1, k);
+	}
+
+	public void LCA(int n1, int n2) {
+
+		LCA(root, n1, n2);
+	}
+
+	public boolean LCA(Node node, int n1, int n2) {
+
+		if (node == null) {
+			return false;
+		}
+
+		if (node.data == n1 || node.data == n2) {
+
+			boolean tempL = LCA(node.left, n1, n2);
+			boolean tempR = LCA(node.right, n1, n2);
+
+			if (tempL || tempR) {
+				System.out.println(node.data);
+			}
+			return true;
+
+		}
+
+		boolean left = LCA(node.left, n1, n2);
+		boolean right = LCA(node.right, n1, n2);
+
+		if (left && right) {
+			System.out.println(node.data);
+		}
+
+		return left || right;
 
 	}
 

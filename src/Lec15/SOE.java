@@ -23,7 +23,7 @@ public class SOE {
 			if (primes[table] == false) {
 				continue;
 			}
-			for (int mult = table; table * mult <= n; mult++) {
+			for (int mult = 2; table * mult <= n; mult++) {
 				primes[table * mult] = false;
 			}
 		}
